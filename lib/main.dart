@@ -1,77 +1,46 @@
 import 'package:flutter/material.dart';
+import 'quote.dart';
+import 'quote_card.dart';
 
 void main() {
   runApp(const MaterialApp(
-    home: Card(),
+    home: Home(),
   ));
 }
 
-class Card extends StatelessWidget {
-  const Card({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  
+  List <Quote> quotes = [
+    Quote(text:'When you have eliminated the impossible, whatever remains, however improbable, must be the truth.', author: 'Sherlock Holmes'),
+    Quote(text: 'The truth is you don’t know what is going to happen tomorrow. Life is a crazy ride, and nothing is guaranteed.', author: 'Eminem')
+  ];
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900  ],
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: const Text('Simple ID'),
+        title: const Text('Awesome Quotes'),
         centerTitle: true,
-        backgroundColor: Colors.grey[850],
-        elevation: 0.0,
+        backgroundColor: Colors.redAccent,
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const <Widget>[
-            Center(
-              child: CircleAvatar(
-                backgroundImage: AssetImage('assets/243730873_224316446264985_3552596130451890018_n.jpg'),
-                radius: 50.0,
-              ),
-            ),
-            Divider(
-              height: 65.0,
-              color: Colors.white,
-            ),
-            Text(
-              'NAME',
-              style: TextStyle(
-                color: Colors.grey,
-                letterSpacing: 2.0,
-              ),
-            ),
-            SizedBox(height: 10.0,),
-            Text(
-              'Ayoub Abidi',
-              style: TextStyle(
-                color: Colors.blue,
-                letterSpacing: 2.0,
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 40.0,),
-            Text(
-              'PROFESSION:',
-              style: TextStyle(
-                color: Colors.grey,
-                letterSpacing: 2.0,
-              ),
-            ),
-            SizedBox(height: 10.0,),
-            Text(
-              'Student / Full-stack developer',
-              style: TextStyle(
-                color: Colors.blue,
-                letterSpacing: 2.0,
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 30.0),
-          ],
-        ),
+      body: Column(
+        children: quotes.map((quote) => QuoteCard(
+          quote: quote,
+          delete: () {
+            setState(() {
+              quotes.remove(quote);
+            });
+          },
+        )).toList(),
       ),
     );
   }
