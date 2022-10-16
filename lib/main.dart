@@ -1,47 +1,35 @@
 import 'package:flutter/material.dart';
-import 'quote.dart';
-import 'quote_card.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sampleapi/home/home.dart';
+import 'package:sampleapi/services/boredService.dart';
+import 'package:sampleapi/services/connectivityService.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    home: Home(),
-  ));
+  runApp(const MyApp());
 }
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  
-  List <Quote> quotes = [
-    Quote(text:'When you have eliminated the impossible, whatever remains, however improbable, must be the truth.', author: 'Sherlock Holmes'),
-    Quote(text: 'The truth is you don’t know what is going to happen tomorrow. Life is a crazy ride, and nothing is guaranteed.', author: 'Eminem')
-  ];
-
-
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[200],
-      appBar: AppBar(
-        title: const Text('Awesome Quotes'),
-        centerTitle: true,
-        backgroundColor: Colors.redAccent,
-      ),
-      body: Column(
-        children: quotes.map((quote) => QuoteCard(
-          quote: quote,
-          delete: () {
-            setState(() {
-              quotes.remove(quote);
-            });
-          },
-        )).toList(),
-      ),
-    );
+    return MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          // is not restarted.
+          primarySwatch: Colors.blue,
+        ),
+        home: MultiRepositoryProvider(
+          providers: [
+            RepositoryProvider(
+              create: (context) => BoredService(),
+            ),
+            RepositoryProvider(
+              create: (context) => ConnectivityService(),
+            )
+          ],
+          child: HomePage(),
+        ));
   }
 }
