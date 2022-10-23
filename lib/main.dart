@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sampleapi/home/home.dart';
-import 'package:sampleapi/services/boredService.dart';
-import 'package:sampleapi/services/connectivityService.dart';
+import 'package:flutter_tries/core/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,21 +12,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          // is not restarted.
-          primarySwatch: Colors.blue,
+        debugShowCheckedModeBanner: false,
+        theme: appTheme,
+        title: 'Posts app',
+        home: Scaffold(
+          appBar: AppBar(
+            title: const Text("Posts"),
+          ),
+          body: const Center(
+            child: Text('Ohayo sekai'),
+          ),
         ),
-        home: MultiRepositoryProvider(
-          providers: [
-            RepositoryProvider(
-              create: (context) => BoredService(),
-            ),
-            RepositoryProvider(
-              create: (context) => ConnectivityService(),
-            )
-          ],
-          child: HomePage(),
-        ));
+    );
   }
 }
