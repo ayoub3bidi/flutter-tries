@@ -3,13 +3,12 @@ import 'package:flutter_tries/features/posts/domain/repositories/posts_repositor
 import '../../../../core/error/failures.dart';
 import '../entities/post.dart';
 
-class UpdatePostUseCase {
+class UpdatePostUsecase {
+  final PostsRepository repository;
 
-  final PostsRepository postsRepository;
+  UpdatePostUsecase(this.repository);
 
-  UpdatePostUseCase(this.postsRepository);
-
-  Future<Either<Failure, Unit>> updatePost(Post post) async {
-    return await postsRepository.updatePost(post);
+  Future<Either<Failure, Unit>> call(Post post) async {
+    return await repository.updatePost(post);
   }
 }
