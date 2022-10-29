@@ -1,7 +1,7 @@
 import '../../domain/entities/post.dart';
 
 class PostModel extends Post {
-  const PostModel({int? id, required String title, required String body}) : super(0, '', '');
+  const PostModel({required int id, required String title, required String body}) : super(0, '', '');
 
   factory PostModel.fromJson(Map<String, dynamic> json) {
     return PostModel(id: json['id'], title: json['title'], body: json['body']);
